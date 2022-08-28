@@ -11,7 +11,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadUsers())
+        dispatch(loadUsers()) // инициируем событие загрузки пользователя
     }, []);
 
     useEffect(() => {

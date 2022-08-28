@@ -6,6 +6,7 @@ const addTodos = (todos) => ({
 })
 
 export const loadTodos = () => (dispatch) => {
+    
     fetch('https://jsonplaceholder.typicode.com/todos')
         .then(res => res.json())
         .then(data => dispatch(addTodos(data)))
