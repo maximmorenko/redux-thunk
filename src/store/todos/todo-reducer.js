@@ -1,4 +1,4 @@
-import { ADD_TODOS, SET_ERROR, SET_LOADING } from './todo-actions';
+import { ADD_TODOS, ADD_TODO, SET_ERROR, SET_LOADING } from './todo-actions';
 
 const initialState = {
     status: 'idle',
@@ -8,6 +8,12 @@ const initialState = {
 
 export const todoReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_TODO: 
+        return {
+            ...state,
+            list: [...state.list, action.payload], //разворачиваем имеющийся массив и добавляем новое туду
+            status: 'fullfied' // загрузка случилась, статус фулфилд
+        };
         case ADD_TODOS: 
         return {
             ...state,

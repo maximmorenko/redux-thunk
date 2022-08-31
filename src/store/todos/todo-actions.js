@@ -6,6 +6,12 @@ import {client} from '../../api'
 export const ADD_TODOS = '@@todos/ADD_TODOS';
 export const SET_LOADING = '@@todos/SET_LOADING';
 export const SET_ERROR = '@@todos/SET_ERROR';
+export const ADD_TODO = '@@todos/ADD_TODO';
+
+const addTodo = (todo) => ({
+    type: ADD_TODO,
+    payload: todo,
+})
 
 const addTodos = (todos) => ({
     type: ADD_TODOS,
@@ -31,6 +37,25 @@ export const loadTodos = () => (dispatch) => {
     // fetch('https://jsonplaceholder.typicode.com/todos')
     //     .then(res => res.json())
     .then(data => dispatch(addTodos(data)))
+    // если есть ошибка то вызываем событие ошибки инициируем его, передаем в него текст ошибки
+    .catch(err => dispatch(setError(err)))
+}
+
+// для создания одного туду во внешнем коде создадим санк 
+export const createTodo = (title) => (dispatch) => {
+    // в тепвую очередь ждем тайтл
+    // во вторую ждем dispatch
+
+    // Обращаемся к клиенту с пост запросом
+    client.post('https://jsonplaceholder.typicode.com/todos', {
+        // передадим боди в качестве объекта
+        title,
+        complited: false,
+        userId: 1,
+    })
+    // затем с сервера ждем новую тудушку (с идентификатором) 
+    // и через диспач вызываем экшн ньюТуду и передаем в нее получпеную туду
+    .then(newTodo => dispatch(addTodo(newTodo)))
     // если есть ошибка то вызываем событие ошибки инициируем его, передаем в него текст ошибки
     .catch(err => dispatch(setError(err)))
 }
