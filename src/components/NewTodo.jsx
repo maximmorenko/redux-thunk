@@ -4,13 +4,13 @@ import { createTodo } from "../store/todos/todo-actions";
 
 export const NewTodo = () => {
     const dispatch = useDispatch();
-
+  
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createTodo(event.target.title.value));
         event.target.reset();
     };
-
+  
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" name="title" placeholder="new todo" />

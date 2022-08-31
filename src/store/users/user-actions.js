@@ -9,9 +9,9 @@ const addUsers = (users) => ({
 })
 
 // воспользуемся thank для получения лузеров
-export const loadUsers = () => (dispatch) => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-        .then(res => res.json()) // как только данные полцчим, разбираем их на json
+export const loadUsers = () => (dispatch, _, client) => {
+    // второй параметр пустой, а третим передаем клиент
+    client.get('https://jsonplaceholder.typicode.com/users')
         .then(data => dispatch(addUsers(data))) // передаем полученый json в экшн при помощи dispatch
 }
 // как только случится это событие, оно попадет в редюсер и обработается (асинхронная операция)

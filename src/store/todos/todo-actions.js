@@ -1,5 +1,6 @@
 // воспользуемся нашим клиентским АПИ
-import {client} from '../../api'
+//import {client} from '../../api'
+// теперь клиента будем доставать из параметров
 
 // так как разные типовые операции, типа SET_LOADING SET_ERROR, могут происходить на разных уровнях 
 // добавим префикс todos, указывая что операция происходит здесь, в этом уровне. (собачки можно не добавлять @@)
@@ -27,7 +28,7 @@ const setError = (err) => ({
     payload: err,
 })
 
-export const loadTodos = () => (dispatch) => {
+export const loadTodos = () => (dispatch, _, client) => {
     // перед тем как пойти на сервер за тудушками, вызывааем собитие загрузки, и инициируем его 
     dispatch(setLoading())
 
@@ -42,7 +43,7 @@ export const loadTodos = () => (dispatch) => {
 }
 
 // для создания одного туду во внешнем коде создадим санк 
-export const createTodo = (title) => (dispatch) => {
+export const createTodo = (title) => (dispatch, _, client) => {
     // в тепвую очередь ждем тайтл
     // во вторую ждем dispatch
 
